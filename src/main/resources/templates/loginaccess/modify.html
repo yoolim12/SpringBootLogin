@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://www.w3.org/1999/xhtml"   xmlns:th="http://www.thymeleaf.org">
+
+<head>
+   <meta charset="UTF-8">
+   <title>Title</title>
+</head>
+<body>
+<h1>구글 사용자 전용</h1>
+
+<!--ROLE_ADMIN 권한을 갖는다면 이 글이 보임-->
+<h1 sec:authorize="hasRole('ADMIN')">
+<h1>For Admin </h1>
+<button type="button" onclick="location.href='/logout'">로그아웃</button>
+</h1>
+<!--ROLE_USER 권한을 갖는다면 이 글이 보임-->
+<h1 sec:authorize="hasRole('USER')">
+<h1>For Member ....................</h1>
+<h1>Welcome!!</h1>
+<button type="button" onclick="location.href='/logout'">로그아웃</button>
+<ul>
+	<li><a href="/loginaccess/test">게시글 1</a></li>
+	<li><a href="">게시글 2</a></li>
+	<li><a href="">게시글 3</a></li>
+</ul>
+</h1>
+<!--ROLE_MANAGER 권한을 갖는다면 이 글이 보임-->
+<h1 sec:authorize="hasRole('MANAGER')">Has MANAGER ROLE</h1>
+
+<!--어떤 권한이건 상관없이 인증이 되었다면 이 글이 보임-->
+<!--<div sec:authorize="isAuthenticated()">
+   Only Authenticated user can see this Text
+</div>-->
+
+<!--인증시 사용된 객체에 대한 정보-->
+<!--<b>Authenticated DTO:</b>
+<div sec:authentication="principal"></div>-->
+
+<!--인증시 사용된 객체의 Username (ID)-->
+<!--<b>Authenticated username:</b>
+<div sec:authentication="name"></div>
+<div th:text="${#authentication.name}"></div>-->
+<!--객체의 권한-->
+<!--<b>Authenticated user role:</b>
+<div sec:authentication="principal.authorities"></div>-->
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.login.repository.MemberRepository">
+ 
+<insert id="insertMember">
+insert into member
+(mid,mname,mpassword,menabled, mrole, memail, telnum, birth) 
+values (#{mid}, #{mname}, #{mpassword}, #{menabled}, #{mrole}, #{memail}, #{telnum, jdbcType=NULL}, #{birth, jdbcType=NULL})
+</insert>
+ 
+<insert id="insertMemberRoleSet" >
+insert into member_role
+(mid, role_set) 
+values(#{mid},#{role_set})
+</insert>
+
+<select id="findByMid" resultType="com.project.login.entity.MemberAndMemberRoleJoin">
+select 
+c1.mid, c1.memail, c1.birth, c1.menabled, c1.mname, c1.mpassword,c2.role_set 
+from 
+member c1 join member_role c2 
+on c1.mid = c2.mid 
+where c1.mid = #{mid} and c1.menabled=#{menabled}
+</select>
+
+<select id="findByGmail" resultType="com.project.login.entity.MemberAndMemberRoleJoin">
+select 
+c1.mid, c1.memail, c1.birth, c1.menabled, c1.mname, c1.mpassword,c2.role_set 
+from 
+member c1 join member_role c2 
+on c1.mid = c2.mid 
+where c1.memail = #{memail} and c1.menabled=#{menabled}
+</select>
+
+<insert id="register" parameterType="com.project.login.entity.MemberDTO">
+insert into member
+(mid,mname,mpassword,menabled, mrole, memail, telnum, birth) 
+values (#{mid}, #{mname}, #{mpassword}, 0, 'user', #{memail}, #{telnum}, #{birth, jdbcType=NULL})
+</insert>
+
+<insert id="registerRole" parameterType="com.project.login.entity.MemberRoleSetDTO">
+insert into member_role
+(mid,role_set) 
+values (#{mid}, 'USER')
+</insert>
+ 
+</mapper>
